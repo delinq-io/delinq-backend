@@ -10,7 +10,8 @@ export default class AdminSeeder extends BaseSeeder {
         password: 'password',
         username: 'Admin',
         avatarUrl: 'https://cdn.discordapp.com/avatars/255065617705467912/b4b7413f8c24e7a5f5fcdee5c2f626da.png',
-        email_validated: true,
+        activationCode: undefined,
+        accountStatus: 'active',
       })
       .create()
   }

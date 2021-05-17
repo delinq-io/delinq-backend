@@ -12,9 +12,8 @@ export const UserFactory = Factory
       password: faker.internet.password(),
       username: faker.internet.userName(),
       avatarUrl: faker.image.image(),
-      email_validated: faker.datatype.boolean(),
+      activationCode: '1234',
+      accountStatus: faker.random.arrayElement(['pending', 'active']),
     }
   })
-  .state('email_validated', (user) => user.email_validated = true)
-  .state('email_unvalidated', (user) => user.email_validated = false)
   .build()

@@ -1,9 +1,4 @@
-/**
- * Contract source: https://git.io/JfefG
- *
- * Feel free to let us know via PR, if you find something broken in this contract
- * file.
- */
+import User from 'App/Models/User'
 
 declare module '@ioc:Adonis/Core/Event' {
   /*
@@ -26,5 +21,6 @@ declare module '@ioc:Adonis/Core/Event' {
   |
   */
   interface EventsList {
+    'new:user': User
   }
 }

@@ -1,11 +1,10 @@
 import { Exception } from '@poppinss/utils'
-// import { Exception } from '@adonisjs/core'
 
-const code = 'E_EMAIL_NOT_VALIDATED'
+const code = 'E_USER_ALREADY_ACTIVE_EXCEPTION'
 const status = 401
-const message = 'Please verify your email address.'
+const message = 'Your account is already active.'
 
-export default class EmailNotValidatedException extends Exception {
+export default class UserAlreadyActiveException extends Exception {
   constructor () {
     super(message, status, code)
   }

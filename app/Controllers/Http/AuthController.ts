@@ -1,9 +1,13 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Logger from '@ioc:Adonis/Core/Logger'
+import Event from '@ioc:Adonis/Core/Event'
 
-import EmailNotValidatedException from 'App/Exceptions/EmailNotValidatedException'
+import PendingAccountException from 'App/Exceptions/PendingAccountException'
+import UserAlreadyActiveException from 'App/Exceptions/UserAlreadyActiveException'
+import InvalidActivationCodeException from 'App/Exceptions/InvalidActivationCodeException'
 import RegisterFormValidator from 'App/Validators/RegisterFormValidator'
+import ValidateFormValidator from 'App/Validators/ValidateFormValidator'
 import User from 'App/Models/User'
+import { DateTime } from 'luxon'
 
 export default class AuthController {
   /**
@@ -12,12 +16,29 @@ export default class AuthController {
   public async register ({ request }: HttpContextContract) {
     const data = await request.validate(RegisterFormValidator)
 
-    // create user
     const user = await User.create(data)
-    Logger.info(`New user: ${user}`)
 
-    // TODO: email confirmation
-    // TODO: tests sur le formvalidator
+    Event.emit('new:user', user)
+  }
+
+  /**
+   * Activate user account
+   */
+  public async activate ({ request }: HttpContextContract) {
+    const data = await request.validate(ValidateFormValidator)
+
+    const user = await User.findByOrFail('email', data.email)
+
+    if (user.accountStatus !== 'pending') {
+      throw new UserAlreadyActiveException()
+    }
+
+    if (user.activationCode !== data.code) {
+      throw new InvalidActivationCodeException()
+    }
+
+    user.accountStatus = 'active'
+    await user.save()
   }
 
   /**
@@ -31,9 +52,16 @@ export default class AuthController {
     // check for credentials
     const user = await auth.attempt(email, password, rememberUser)
 
-    // TODO: check if email is validated
-    if (!user.email_validated) {
-      throw new EmailNotValidatedException()
+    if (user.accountStatus === 'pending') {
+      throw new PendingAccountException()
+    }
+
+    const lastLogin = user.lastLogin
+    user.lastLogin = DateTime.now()
+    await user.save()
+
+    if (!lastLogin) {
+      return { firstLogin: true }
     }
   }
 

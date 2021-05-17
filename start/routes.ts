@@ -30,6 +30,7 @@ Route.get('/health', async ({ response }) => {
 
 Route.group(() => {
   Route.post('/register', 'AuthController.register')
+  Route.post('/activate', 'AuthController.activate')
 
   Route.post('/logout', 'AuthController.logout')
   Route.post('/login', 'AuthController.login')

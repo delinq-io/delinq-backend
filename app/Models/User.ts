@@ -23,7 +23,13 @@ export default class User extends BaseModel {
   public avatarUrl: string
 
   @column()
-  public email_validated: boolean
+  public activationCode?: string
+
+  @column()
+  public accountStatus: string
+
+  @column.dateTime()
+  public lastLogin: DateTime
 
   @column()
   public rememberMeToken?: string
