@@ -36,3 +36,13 @@ Route.group(() => {
   Route.post('/login', 'AuthController.login')
   Route.get('/user', 'AuthController.getUser').middleware('auth')
 }).prefix('auth')
+
+// -------------------------------------
+// Workspaces routes
+// -------------------------------------
+
+Route.group(() => {
+  Route.post('/', 'WorkspacesController.create')
+
+  Route.get('/:name', 'WorkspacesController.getByName')
+}).prefix('workspaces').middleware(['auth'])
