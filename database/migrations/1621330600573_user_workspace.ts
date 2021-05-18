@@ -9,7 +9,6 @@ export default class UserWorkspace extends BaseSchema {
       table.integer('user_id').references('users.id').onDelete('cascade')
       table.integer('workspace_id').references('workspaces.id').onDelete('cascade')
       table.enu('role', ['member', 'owner'])
-      table.timestamps(true)
     })
   }
 
