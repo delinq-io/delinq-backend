@@ -38,6 +38,14 @@ Route.group(() => {
 }).prefix('auth')
 
 // -------------------------------------
+// Current user routes
+// -------------------------------------
+
+Route.group(() => {
+  Route.get('/workspaces', 'MeController.getWorkspaces')
+}).prefix('me').middleware(['auth'])
+
+// -------------------------------------
 // Workspaces routes
 // -------------------------------------
 
