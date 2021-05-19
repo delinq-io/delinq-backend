@@ -13,7 +13,7 @@ export default class User {
       message
         .from('noreply@delinq.io')
         .to(user.email)
-        .subject('delinq.io email verification code')
+        .subject('Verify your delinq.io account!')
         .htmlView('emails/validate-email', {
           user: { username: user.username },
           code: user.activationCode,
