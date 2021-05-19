@@ -4,9 +4,12 @@ import {
   column,
   manyToMany,
   ManyToMany,
+  hasMany,
+  HasMany,
 } from '@ioc:Adonis/Lucid/Orm'
 
 import User from 'App/Models/User'
+import Link from 'App/Models/Link'
 
 export default class Workspace extends BaseModel {
   @column({ isPrimary: true })
@@ -17,6 +20,9 @@ export default class Workspace extends BaseModel {
 
   @manyToMany(() => User, { pivotColumns: ['role'] })
   public members: ManyToMany<typeof User>
+
+  @hasMany(() => Link)
+  public links: HasMany<typeof Link>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
