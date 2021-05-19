@@ -54,3 +54,13 @@ Route.group(() => {
 
   Route.get('/:name', 'WorkspacesController.getByName')
 }).prefix('workspaces').middleware(['auth'])
+
+// -------------------------------------
+// Link routes
+// -------------------------------------
+
+Route.get('/:key', 'LinksController.getByKey')
+
+Route.group(() => {
+  Route.post('/', 'LinksController.create')
+}).prefix('links').middleware(['auth'])
