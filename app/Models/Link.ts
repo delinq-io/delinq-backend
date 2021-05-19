@@ -5,9 +5,12 @@ import {
   beforeSave,
   belongsTo,
   BelongsTo,
+  hasMany,
+  HasMany,
 } from '@ioc:Adonis/Lucid/Orm'
 
 import User from 'App/Models/User'
+import Click from 'App/Models/Click'
 
 export default class Link extends BaseModel {
   @column({ isPrimary: true })
@@ -36,6 +39,9 @@ export default class Link extends BaseModel {
 
   @column()
   public workspaceId: number
+
+  @hasMany(() => Click)
+  public clicks: HasMany<typeof Click>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
