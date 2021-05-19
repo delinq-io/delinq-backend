@@ -64,3 +64,11 @@ Route.get('/:key', 'LinksController.getByKey')
 Route.group(() => {
   Route.post('/', 'LinksController.create')
 }).prefix('links').middleware(['auth'])
+
+// -------------------------------------
+// Click routes
+// -------------------------------------
+
+Route.group(() => {
+  Route.get('/:workspaceName/today', 'ClicksController.getToday')
+}).prefix('clicks').middleware(['auth'])
