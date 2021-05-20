@@ -38,9 +38,9 @@ export default class AdminSeeder extends BaseSeeder {
 
     await ClickFactory
       .merge({ linkId: link1.id })
-      .createMany(200)
+      .createMany(10000)
     await ClickFactory
       .merge({ linkId: link2.id })
-      .createMany(200)
+      .createMany(10000)
   }
 }

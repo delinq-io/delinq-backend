@@ -51,7 +51,7 @@ export const LinkFactory = Factory
 export const ClickFactory = Factory
   .define(Click, ({ faker }) => {
     const d = new Date()
-    d.setDate(d.getDate() - 7)
+    d.setDate(d.getDate() - 60)
 
     return {
       createdAt: DateTime.fromJSDate(faker.date.between(d, new Date())),
