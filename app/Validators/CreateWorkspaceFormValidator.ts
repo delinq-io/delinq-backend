@@ -14,14 +14,18 @@ export default class CreateWorkspaceFormValidator {
       rules.required(),
       rules.maxLength(32),
     ]),
+    timezone: schema.string({}, [
+      rules.required(),
+    ]),
   })
 
   /**
 	 * Custom messages for validation failures.
 	 */
   public messages = {
-    'name.unique': 'Workspace name not available.',
-    'name.required': 'Workspace name is required.',
-    'name.maxLength': 'Workspace name can\'t be more than 32 characters long.',
+    'name.unique': 'Name not available.',
+    'name.required': 'Name is required.',
+    'name.maxLength': 'Name can\'t be more than 32 characters long.',
+    'timezone.required': 'Timezone is required.',
   }
 }

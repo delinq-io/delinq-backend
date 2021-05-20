@@ -20,6 +20,9 @@ export default class Workspace extends BaseModel {
   @column()
   public name: string
 
+  @column()
+  public timezone: string
+
   @manyToMany(() => User, { pivotColumns: ['role'] })
   public members: ManyToMany<typeof User>
 

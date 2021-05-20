@@ -7,6 +7,7 @@ export default class Workspaces extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('name', 32).notNullable().unique()
+      table.string('timezone', 64).notNullable().defaultTo('Europe/Brussels')
       table.timestamps(true)
     })
   }
