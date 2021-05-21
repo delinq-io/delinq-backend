@@ -7,11 +7,13 @@ import Click from 'App/Models/Click'
 import Workspace from 'App/Models/Workspace'
 
 export default class ClicksController {
-  public async getToday ({ params }: HttpContextContract) {
+  public async getDate ({ params }: HttpContextContract) {
     const workspace = await Workspace.findByOrFail('name', params.workspaceName)
-    const date = new Date()
-    const usersDate = DateTime.fromJSDate(date).setZone(workspace.timezone)
-    const startOfDay = `${usersDate.year}-${usersDate.month}-${usersDate.day}`
+    const startDate = DateTime.fromFormat(params.date, 'yyyy-MM-dd').setZone(workspace.timezone)
+    const endDate = DateTime.fromObject({
+      year: startDate.year, month: startDate.month, day: startDate.day,
+      hour: 23, minute: 59, second: 59,
+    }).setZone(workspace.timezone)
 
     const clicks = await Click
       .query()
@@ -21,7 +23,7 @@ export default class ClicksController {
           .where('workspace_id', workspace.id)
           .select('id')
       )
-      .andWhereBetween('created_at', [startOfDay, usersDate.toString()])
+      .andWhereBetween('created_at', [startDate.toString(), endDate.toString()])
       .select('created_at')
       .orderBy('created_at', 'asc')
 

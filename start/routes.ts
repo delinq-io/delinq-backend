@@ -70,5 +70,5 @@ Route.group(() => {
 // -------------------------------------
 
 Route.group(() => {
-  Route.get('/:workspaceName/today', 'ClicksController.getToday')
+  Route.get('/:workspaceName/date/:date', 'ClicksController.getDate')
 }).prefix('clicks').middleware(['auth'])
