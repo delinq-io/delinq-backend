@@ -27,7 +27,7 @@
     "@adonisjs/auth": "^8.0.4",
     "@adonisjs/core": "^5.1.7",
     "@adonisjs/lucid": "^14.1.0",
-    "@adonisjs/mail": "^7.1.1",
+    "@adonisjs/mail": "^7.2.5",
     "@adonisjs/repl": "^3.1.2",
     "@adonisjs/session": "^6.0.3",
     "@adonisjs/view": "^6.0.2",
